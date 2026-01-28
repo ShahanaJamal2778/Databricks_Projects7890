@@ -1,0 +1,128 @@
+{
+  "datasets": [
+    {
+      "name": "be610d37",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `workspace`;\n",
+        "USE SCHEMA `sales_db`;\n",
+        "\n",
+        "\n",
+        "--total orders over time\n",
+        "SELECT date_trunc('month',order_date) AS orderdate,\n",
+        "SUM(sales_amount)\n",
+        "FROM workspace.sales_db.fact_sales\n",
+        "GROUP BY date_trunc('month',order_date)"
+      ]
+    },
+    {
+      "name": "31a8124d",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `workspace`;\n",
+        "USE SCHEMA `default`;\n",
+        "\n",
+        "SELECT \n",
+        "SUM(sales_amount) AS Sales,\n",
+        "p.category AS category \n",
+        "FROM workspace.sales_db.fact_sales2 f\n",
+        "LEFT JOIN workspace.sales_db.dim_products p\n",
+        "ON f.product_key = p.product_key\n",
+        "GROUP BY p.category"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "51b83462",
+      "displayName": "Untitled Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "23682342",
+            "queries": [
+              {
+                "name": "7a290a252e594546b46d71af136040f6",
+                "query": {
+                  "datasetName": "be610d37",
+                  "fields": [
+                    {
+                      "name": "orderdate",
+                      "expression": "`orderdate`"
+                    },
+                    {
+                      "name": "column_88cc5a7a284",
+                      "expression": "SUM(`sum(sales_amount)`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Orders Over Time",
+                "viz_type": "CHART",
+                "serialized_options": "{\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"orderdate\",\"id\":\"column_88cc5a7a283\"},\"y\":[{\"column\":\"sum(sales_amount)\",\"id\":\"column_88cc5a7a284\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"line\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_88cc5a7a284\":{\"name\":\"sum(sales_amount)\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "7a290a252e594546b46d71af136040f6"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "2c1bd73d",
+            "queries": [
+              {
+                "name": "f9784f926721486bb636b1c364130553",
+                "query": {
+                  "datasetName": "31a8124d",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "column_88cc5a7a305",
+                      "expression": "SUM(`Sales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Sales By Category",
+                "viz_type": "CHART",
+                "serialized_options": "{\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"category\",\"id\":\"column_88cc5a7a304\"},\"y\":[{\"column\":\"Sales\",\"id\":\"column_88cc5a7a305\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_88cc5a7a305\":{\"name\":\"Sales\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "f9784f926721486bb636b1c364130553"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
